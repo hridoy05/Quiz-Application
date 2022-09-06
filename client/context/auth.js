@@ -1,5 +1,4 @@
 import { useState, useEffect, createContext } from "react";
-import axois from "axios";
 import axios from "axios";
 
 const AuthContext = createContext();
@@ -16,6 +15,7 @@ const AuthProvider = ({ children }) => {
   } else {
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_API;
   }
+  
 
   useEffect(() => {
     if (localStorage.getItem("auth")) {

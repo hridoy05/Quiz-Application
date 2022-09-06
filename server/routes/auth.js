@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // controllers
-const { signup, signin } = require('../controllers/auth');
+const { signup, signin } = require('../controllers/authController');
 
 router.get('/', (req, res) => {
     return res.json({
