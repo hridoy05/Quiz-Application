@@ -2,7 +2,7 @@ import { Form, Input, Button, Checkbox, Col, Row } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
-function Signin() {
+function Signup() {
   const onFinish = (values) => {
     console.log("values => ", values);
   };
@@ -10,7 +10,7 @@ function Signin() {
   return (
     <Row>
       <Col span={8} offset={8}>
-        <h1 style={{ paddingTop: "100px" }}>Signin</h1>
+        <h1 style={{ paddingTop: "100px" }}>Signup</h1>
 
         <Form
           name="normal_login"
@@ -18,6 +18,16 @@ function Signin() {
           initialValues={{ remember: true }}
           onFinish={onFinish}
         >
+          {/* nam */}
+          <Form.Item
+            name="name"
+            rules={[{ required: true, message: "Please input your name!" }]}
+          >
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Name"
+            />
+          </Form.Item>
           {/* email */}
           <Form.Item name="email" rules={[{ type: "email" }]}>
             <Input
@@ -37,24 +47,18 @@ function Signin() {
             />
           </Form.Item>
 
-          <Link href="/forgot-password">
-            <a>Forgot Password</a>
-          </Link>
-          <br />
-          <br />
-
           <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               className="login-form-button"
             >
-              Login
+              Register
             </Button>
             <br />
             Or{" "}
-            <Link href="/signup">
-              <a>Register now!</a>
+            <Link href="/signin">
+              <a>Login now!</a>
             </Link>
           </Form.Item>
         </Form>
@@ -63,4 +67,4 @@ function Signin() {
   );
 }
 
-export default Signin;
+export default Signup;
