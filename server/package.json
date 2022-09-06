@@ -1,0 +1,66 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch",
+    "start": "nodemon server.js",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "express-mongo-sanitize": "^2.1.0",
+    "express-rate-limit": "^5.4.1",
+    "helmet": "^4.6.0",
+    "http-status-codes": "^2.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.8",
+    "morgan": "^1.10.0",
+    "validator": "^13.6.0",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.0.2",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "supertest": "^6.2.4"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "env": {
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "rules": {
+      "eqeqeq": "warn",
+      "prettier/prettier": "warn"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120,
+    "tabWidth": 4
+  }
+}
