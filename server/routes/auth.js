@@ -3,8 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // controllers
-const { signup, signin, currentUser } = require('../controllers/authController');
-const { requireSignin, isAdmin } = require('../middleware');
+const { signup, signin } = require('../controllers/authController');
 
 router.get('/', (req, res) => {
     return res.json({
@@ -13,6 +12,5 @@ router.get('/', (req, res) => {
 });
 router.post('/signup', signup);
 router.post('/signin', signin);
-router.get('/current-admin', requireSignin, isAdmin, currentUser);
 
 module.exports = router;
