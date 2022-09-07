@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Form, Input, Button, Checkbox, Col, Row } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import Link from "next/link";
@@ -14,21 +14,31 @@ function Signin() {
   const [loading, setLoading] = useState(false);
   // hooks
   const router = useRouter();
-  // const [form] = Form.useForm();
+  useEffect(() => {
+    if (auth?.token) {
+      router.push("/");
+    }
+  }, [auth]);
 
   const onFinish = async (values) => {
-    // console.log("values => ", values);
     try {
       setLoading(true);
       const { data } = await axios.post("/signin", values);
       // console.log("signin response => ", data);
       // save user and token to context
+      console.log(data)
       setAuth(data);
+      
       // save user and token to local storage
       localStorage.setItem("auth", JSON.stringify(data));
       toast.success("Successfully signed in");
       // redirect user
-      router.push("/");
+      if (data?.user?.role === "admin") {
+          router.push("/admin");
+        } 
+      else{
+        router.push("/");
+      }
       // form.resetFields();
     } catch (err) {
       console.log("err => ", err);

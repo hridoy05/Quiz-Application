@@ -11,7 +11,7 @@ exports.requireSignin = expressJwt({
 exports.isAdmin = async (req, res, next) => {
     try {
         const user = await User.findById(req.user._id);
-        if (user.role !== 'Admin') {
+        if (user.role !== 'admin') {
             return res.status(403).send('Unauhorized');
         } else {
             next();

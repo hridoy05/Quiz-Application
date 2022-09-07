@@ -12,7 +12,6 @@ function Signup() {
   const [auth , setAuth] = useContext(AuthContext);
   // hook
   const router = useRouter();
-  console.log(router);
   // state
   const [loading, setLoading] = useState(false);
 
@@ -28,6 +27,7 @@ function Signup() {
         // console.log("signup response => ", data);
         // save in context
         setAuth(data);
+        
         // save in local storage
         localStorage.setItem("auth", JSON.stringify(data));
         toast.success("Successfully signed up");

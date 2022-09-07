@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // middleware
-const { requireSignin, isAdmin } = require('../middlewares');
+const { requireSignin, isAdmin } = require('../middleware');
 // controllers
 const { create } = require('../controllers/categoryController');
 
