@@ -57,11 +57,12 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = async (req, res) => {
-    console.log(req.body);
+    console.log(req.body, ' req ');
     try {
         const { email, password } = req.body;
         // check if our db has user with that email
         const user = await User.findOne({ email });
+        console.log(user);
         if (!user) {
             return res.json({
                 error: 'No user found',
