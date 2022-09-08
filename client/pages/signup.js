@@ -64,7 +64,7 @@ function Signup() {
             />
           </Form.Item>
           {/* email */}
-          <Form.Item name="email" rules={[{ type: "email" }]}>
+          <Form.Item name="email" rules={[{ required: true, message: "Please input your Email!" }]}>
             <Input
               prefix={<MailOutlined className="site-form-item-icon" />}
               placeholder="Email"

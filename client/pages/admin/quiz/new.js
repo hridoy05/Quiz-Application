@@ -6,7 +6,7 @@ const { Content, Sider } = Layout;
 function NewPost() {
   return (
     <AdminLayout>
-      <h1>Create new post</h1>
+      <h1>Create new quiz</h1>
       <p>...</p>
     </AdminLayout>
   );

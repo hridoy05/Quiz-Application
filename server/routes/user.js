@@ -14,6 +14,7 @@ const {
 } = require('../controllers/userController');
 const { requireSignin, isAdmin } = require('../middleware');
 router.get('/current-admin', requireSignin, isAdmin, currentUser);
+router.get('/current-user', requireSignin, currentUser);
 router.post('/create-user', requireSignin, isAdmin, createUser);
 router.put('/update-user', requireSignin, updateUser);
 router.put('/update-user-by-admin', requireSignin, isAdmin, updateUserByAdmin);

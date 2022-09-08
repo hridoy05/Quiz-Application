@@ -1,32 +1,26 @@
-const User = require('../models/user');
+const User = require('../models/User.mongo');
 const jwt = require('jsonwebtoken');
 
 const { hashPassword, comparePassword } = require('../helpers/auth');
+const { BadRequestError, UnauthenticatedError } = require('../errors');
+
 exports.signup = async (req, res) => {
     console.log('HIT SIGNUP');
     try {
         // validation
         const { name, email, password } = req.body;
         if (!name) {
-            return res.json({
-                error: 'Name is required',
-            });
+            throw new BadRequestError('Please provide name');
         }
         if (!email) {
-            return res.json({
-                error: 'Email is required',
-            });
+            throw new BadRequestError('Please provide email');
         }
         if (!password || password.length < 6) {
-            return res.json({
-                error: 'Password is required and should be 6 characters long',
-            });
+            throw new BadRequestError('Please provide password');
         }
         const exist = await User.findOne({ email });
         if (exist) {
-            return res.json({
-                error: 'Email is taken',
-            });
+            throw new BadRequestError('Email already exists');
         }
         // hash password
         const hashedPassword = await hashPassword(password);
@@ -57,23 +51,18 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = async (req, res) => {
-    console.log(req.body, ' req ');
     try {
         const { email, password } = req.body;
         // check if our db has user with that email
         const user = await User.findOne({ email });
         console.log(user);
         if (!user) {
-            return res.json({
-                error: 'No user found',
-            });
+            throw new UnauthenticatedError('Invalid Credentials');
         }
         // check password
         const match = await comparePassword(password, user.password);
         if (!match) {
-            return res.json({
-                error: 'Wrong password',
-            });
+            throw new UnauthenticatedError('Invalid Credentials');
         }
         // create signed token
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {

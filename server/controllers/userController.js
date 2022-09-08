@@ -1,6 +1,7 @@
-const User = require('../models/user');
+const User = require('../models/User.mongo');
 const emailValidator = 'email-validator';
 const { hashPassword } = require('../helpers/auth');
+const { BadRequestError, UnauthenticatedError } = require('../errors');
 
 exports.currentUser = async (req, res) => {
     try {
@@ -9,8 +10,7 @@ exports.currentUser = async (req, res) => {
         // res.json(user);
         res.json({ ok: true, user });
     } catch (err) {
-        console.log(err);
-        res.sendStatus(400);
+        throw new UnauthenticatedError('Invalid Credentials');
     }
 };
 exports.createUser = async (req, res) => {
@@ -18,25 +18,17 @@ exports.createUser = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
         if (!name) {
-            return res.json({
-                error: 'Name is required',
-            });
+            throw new BadRequestError('Please provide name');
         }
         if (!email) {
-            return res.json({
-                error: 'Email is required',
-            });
+            throw new BadRequestError('Please provide email');
         }
         if (!password || password.length < 6) {
-            return res.json({
-                error: 'Password is required and should be 6 characters long',
-            });
+            throw new BadRequestError('Password is required and should be 6 characters long');
         }
         const exist = await User.findOne({ email });
         if (exist) {
-            return res.json({
-                error: 'Email is taken',
-            });
+            throw new BadRequestError('Email already exists');
         }
         // hash password
         const hashedPassword = await hashPassword(password);
