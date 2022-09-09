@@ -4,7 +4,7 @@ import UserLayout from '../../components/layout/UserLayout';
 const quiz = () => {
     return (
         <UserLayout>
-            question
+            <h3 className='text-white'>Questions</h3>
         </UserLayout>
     );
 };
