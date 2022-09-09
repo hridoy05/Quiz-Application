@@ -2,6 +2,7 @@ const User = require('../models/User.mongo');
 const emailValidator = 'email-validator';
 const { hashPassword } = require('../helpers/auth');
 const { BadRequestError, UnauthenticatedError } = require('../errors');
+const { getAllUsers } = require('../models/User.models');
 
 exports.currentUser = async (req, res) => {
     try {
@@ -55,10 +56,9 @@ exports.createUser = async (req, res) => {
 
 exports.users = async (req, res) => {
     try {
-        const users = await User.find().select('-password').sort({ createdAt: 1 });
+        const users = await getAllUsers();
         res.json(users);
     } catch (err) {
-        console.log(err);
         res.sendStatus(400);
     }
 };

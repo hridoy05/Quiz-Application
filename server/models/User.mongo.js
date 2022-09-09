@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const { ObjectId } = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -26,6 +27,8 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: 'user',
     },
+    stripe_account_id: '',
+    quizes: [{ type: ObjectId, ref: 'Quiz' }],
 });
 
 module.exports = mongoose.model('User', UserSchema);

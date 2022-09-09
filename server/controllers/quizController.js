@@ -1,5 +1,6 @@
 const Quiz = require('../models/Quiz.mongo');
 const slugify = require('slugify');
+const { getAllQuizes } = require('../models/Quiz.model');
 
 exports.quizCreate = async (req, res) => {
     console.log(' hit quiz ');
@@ -21,7 +22,7 @@ exports.quizCreate = async (req, res) => {
 
 exports.quizes = async (req, res) => {
     try {
-        const all = await Quiz.find({}).exec();
+        const all = await getAllQuizes();
         res.json(all);
     } catch (err) {
         console.log(err);
