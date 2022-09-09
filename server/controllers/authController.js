@@ -1,6 +1,6 @@
 const User = require('../models/User.mongo');
 const jwt = require('jsonwebtoken');
-
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { hashPassword, comparePassword } = require('../helpers/auth');
 const { BadRequestError, UnauthenticatedError } = require('../errors');
 
@@ -24,12 +24,15 @@ exports.signup = async (req, res) => {
         }
         // hash password
         const hashedPassword = await hashPassword(password);
-
+        const customer = await stripe.customers.create({
+            email,
+        });
         try {
             const user = await new User({
                 name,
                 email,
                 password: hashedPassword,
+                stripe_account_id: customer.id,
             }).save();
 
             // create signed token
